@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import useInput from "../hooks/useInput";
+import useInput from "../../../hooks/useInput";
 import { Link, useNavigate } from "react-router-dom";
 
 import UserLogo from "../images/image.png";
