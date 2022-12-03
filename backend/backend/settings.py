@@ -129,7 +129,11 @@ STATIC_URL = 'static/'
 
 # Пути для корсов
 # pip install django-cors-headers
+
+
 CORS_ORIGIN_ALLOW_ALL = True
+
+
 # CORS_ALLOWED_ORIGINS = [
 #     'http://localhost:8000'
 # ]
