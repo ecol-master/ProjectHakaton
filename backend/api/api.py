@@ -1,5 +1,6 @@
 from django.contrib.auth import login
 from django.contrib.auth import logout
+from rest_framework.permissions import IsAuthenticated
 
 from rest_framework.views import APIView
 from rest_framework.generics import *
@@ -49,8 +50,23 @@ class AuthorizationAPIView(APIView):
 
 
 class LogoutAPIView(APIView):
+    permission_classes = [IsAuthenticated, ]
+
     def post(self, request, *args, **kwargs):
         logout(request)
         return CustomResponse.make_response(message='Произведён выход из аккаунта.')
 
 
+class GetMeAPIView(RetrieveAPIView):
+    queryset = CustomUser
+    serializer_class = RetrieveUserSerializer
+    permission_classes = [IsAuthenticated, ]
+
+    def get_object(self):
+        return self.request.user
+
+
+class GetUserAPIView(RetrieveAPIView):
+    queryset = CustomUser
+    serializer_class = RetrieveUserSerializer
+    lookup_field = 'username'

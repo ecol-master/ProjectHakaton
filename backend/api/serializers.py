@@ -30,3 +30,11 @@ class RegistrationUserSerializer(serializers.Serializer):
 
         response = {'id': model.pk, 'username': model.username, 'email': model.email}
         return response
+
+
+class RetrieveUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ('id', 'is_superuser',
+                  'username', 'email',
+                  'is_active',)
