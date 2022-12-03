@@ -26,7 +26,7 @@ class RegistrationAPIView(APIView):
 
 class AuthorizationAPIView(APIView):
     def post(self, request, *args, **kwargs):
-        serializer = RegistrationUserSerializer(data=request.data)
+        serializer = AuthorizationUserSerializer(data=request.data)
 
         if serializer.is_valid(raise_exception=True):
             if CustomUser.objects.filter(email=serializer.validated_data.get('email')):
@@ -52,3 +52,5 @@ class LogoutAPIView(APIView):
     def post(self, request, *args, **kwargs):
         logout(request)
         return CustomResponse.make_response(message='Произведён выход из аккаунта.')
+
+

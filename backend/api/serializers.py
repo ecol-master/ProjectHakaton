@@ -24,8 +24,8 @@ class RegistrationUserSerializer(serializers.Serializer):
 
     def create(self, validated_data):
         model = CustomUser(username=validated_data.get('username'),
-                           email=validated_data.get('email'),
-                           password=validated_data.get('password'))
+                           email=validated_data.get('email'))
+        model.set_password(validated_data.get('password'))
         model.save()
 
         response = {'id': model.pk, 'username': model.username, 'email': model.email}
