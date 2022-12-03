@@ -1,0 +1,103 @@
+.sign_up {
+  .sign_up__header {
+    grid-row: 1/2;
+    grid-column: 1/2;
+
+    display: grid;
+    grid-template: auto auto / 1fr;
+    row-gap: 20px;
+    img {
+      grid-row: 1/2;
+      grid-column: 1/2;
+      justify-self: center;
+      width: 100px;
+      height: 100px;
+    }
+    h2 {
+      grid-row: 2/3;
+      grid-column: 1/2;
+      text-align: center;
+      font-family: "Roboto";
+      font-weight: 500;
+      font-size: 18px;
+      color: rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  // INPUTS
+  $input-border-color: #ffc400ec;
+  $input-border-hover-focus-color: #d7a500ec;
+  .sign_up__inputs {
+    grid-row: 3/4;
+    grid-column: 1/2;
+
+    display: flex;
+    flex-direction: column;
+
+    input {
+      width: 200px;
+      margin: 0 auto;
+      border: 0;
+      background: none;
+      font-size: 16px;
+      outline: none;
+      margin-bottom: 40px;
+      transition: 0.25s;
+      font-family: "Roboto";
+    }
+
+    input:last-child {
+      margin-bottom: 0px;
+    }
+
+    input[type="email"],
+    input[type="password"],
+    input[type="text"] {
+      border-bottom: 3px solid $input-border-color;
+      padding: 10px 7px;
+    }
+
+    input[type="email"]:focus,
+    input[type="password"]:focus,
+    input[type="text"]:focus {
+      border-color: $input-border-hover-focus-color;
+    }
+
+    input[type="submit"] {
+      border-radius: 10px;
+      padding: 10px 0px 10px 0px;
+      background: none;
+      text-transform: capitalize;
+      border: 2px solid $input-border-color;
+    }
+    input[type="submit"]:hover {
+      cursor: pointer;
+      box-shadow: 0 0 5px 2px rgba(221, 221, 221, 1);
+      border: 2px solid $input-border-hover-focus-color;
+      font-size: 16px;
+    }
+  }
+
+  .sign_up__information {
+    grid-row: 5/6;
+    justify-self: center;
+
+    .forgot__link {
+      font-family: "Roboto";
+
+      display: block;
+      text-align: center;
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #bababa;
+      text-decoration: none;
+      transition: 0.2s;
+      text-transform: capitalize;
+    }
+    .forgot__link:hover {
+      color: #838383;
+      cursor: pointer;
+    }
+  }
+}
