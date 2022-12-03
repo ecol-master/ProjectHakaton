@@ -12,27 +12,70 @@ const SignIn = () => {
   const inputEmail = useInput();
   const inputPassword = useInput();
 
-  const [signInResponse, setSignInResponse] = useState(null);
+  const [error, setError] = useState({ message: null, status_code: 0 });
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (signInResponse) {
-      if (signInResponse.status_code == 200) {
-        navigate("/");
-      }
+    if (error.status_code == 200) {
+      navigate("/");
     }
-  }, [signInResponse]);
+  }, [error]);
+
+  const getErrorFromData = (data) => {
+    const dataKeys = Object.keys(data);
+    console.log(data, dataKeys);
+  };
 
   const onClickSubmit = () => {
-    const requestData = {
-      email: inputEmail.value,
-      password: inputPassword.value,
+    const isValuesNotEmpty = () => {
+      let isEmpty = false;
+
+      [inputEmail.value, inputPassword.value].map((value) => {
+        if (value.trim() == "") {
+          isEmpty = true;
+        }
+      });
+      return isEmpty;
     };
-    
 
-    setSignInResponse({ status_code: 200 });
+    if (!isValuesNotEmpty()) {
+      const signUpUrlAPI = "http://127.0.0.1:8000/api/v1/authorization/";
+      const data = {
+        email: inputEmail.value,
+        password: inputPassword.value
+      };
 
-    // console.log(inputEmail.value, inputPassword.value);
+      fetch(signUpUrlAPI, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          getErrorFromData(data);
+        });
+    } else {
+      let classNameBox = "";
+      switch (error.status_code) {
+        case 200:
+          classNameBox = "success";
+          break;
+        case 400:
+          classNameBox = "failed";
+          break;
+        case 0:
+          classNameBox = "hidden";
+          break;
+      }
+
+      setError({
+        message: "Check if the fields are filled in correctly",
+        status_code: 400,
+      });
+    }
   };
 
   const renderMessageBox = () => {
@@ -67,6 +110,7 @@ const SignIn = () => {
           </div>
 
           <div className="sign_in__information">
+            {renderMessageBox()}
             <Link to="/sign-up" className="forgot__link">
               Sign Up
             </Link>

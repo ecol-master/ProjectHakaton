@@ -1,42 +1,65 @@
 import React, { useState } from "react";
 import useInput from "../hooks/useInput";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import UserLogo from "../images/image.png";
 
 import "./SignUp.scss";
+import { useEffect } from "react";
 
 const SignUp = () => {
   const userName = useInput();
   const email = useInput();
   const password = useInput();
   const passwordRepeat = useInput();
+  const navigate = useNavigate();
 
-  const [error, setError] = useState("");
+  const [error, setError] = useState({ message: null, status_code: 0 });
+
+  const getErrorFromData = (data) => {
+    const dataKeys = Object.keys(data);
+    if (dataKeys.includes("email")) {
+      return { message: "Enter a valid email address.", status_code: 400 };
+    } else if (dataKeys.includes("username")) {
+      return {
+        message: "Ensure username field has at least 4 characters",
+        status_code: 400,
+      };
+    }
+
+    return { message: data.message, status_code: data.status_code };
+  };
+
+  useEffect(() => {
+    if (error.status_code === 200) {
+      navigate("/");
+    }
+  });
 
   const onClickSubmit = () => {
     const isValuesNotEmpty = () => {
       let isEmpty = false;
 
-      [
-        userName.value,
-        jobPosition.value,
-        email.value,
-        password.value,
-        passwordRepeat.value,
-      ].map((value) => {
-        if (value.trim() == "") {
-          isEmpty = true;
+      [userName.value, email.value, password.value, passwordRepeat.value].map(
+        (value) => {
+          if (value.trim() == "") {
+            isEmpty = true;
+          }
         }
-      });
+      );
       return isEmpty;
     };
 
     if (!isValuesNotEmpty()) {
       if (password.value !== passwordRepeat.value) {
         setError({ message: "Passwords do not match", status_code: 400 });
+      } else if (password.value.length < 6) {
+        setError({
+          message: "Ensure this field has at least 6 characters.",
+          status_code: 400,
+        });
       } else {
-        const signUpUrlAPI = "";
+        const signUpUrlAPI = "http://127.0.0.1:8000/api/v1/registration/";
         const data = {
           username: userName.value,
           email: email.value,
@@ -45,17 +68,16 @@ const SignUp = () => {
 
         fetch(signUpUrlAPI, {
           method: "POST",
-          body: data,
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
         })
           .then((response) => response.json())
           .then((data) => {
-            if (data.status_code == 200) {
-              setError("Все верно");
-            }else{
-              
-            }
+            setError(getErrorFromData(data));
           });
-        setError({ message: "Everything is right", status_code: 200 });
       }
     } else {
       setError({
@@ -66,11 +88,24 @@ const SignUp = () => {
   };
 
   const renderMessageBox = () => {
-    const classNameBox = error.status_code == 200 ? "success" : "failed";
+    let classNameBox = "";
+    switch (error.status_code) {
+      case 200:
+        classNameBox = "success";
+        break;
+      case 400:
+        classNameBox = "failed";
+        break;
+      case 0:
+        classNameBox = "hidden";
+        break;
+    }
 
     return (
       <div className={`error__box ${classNameBox}`}>
-        <h3 className="error__box_message">{error.message}</h3>
+        <h3 className="error__box_message">
+          {error.status_code == 0 ? "" : error.message}
+        </h3>
       </div>
     );
   };
