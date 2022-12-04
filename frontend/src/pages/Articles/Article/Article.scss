@@ -1,0 +1,98 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+
+.article {
+  border: 2px solid #11101d;
+  border-radius: 38px;
+  padding: 30px 40px;
+  font-family: "Poppins";
+
+  .article__header {
+    display: grid;
+    grid-template: auto auto / 1fr auto;
+    row-gap: 10px;
+    column-gap: 30px;
+    position: relative;
+    margin-bottom: 15px;
+
+    .header__title {
+      grid-row: 1/2;
+      grid-column: 1/2;
+      font-size: 32px;
+      font-weight: 400;
+    }
+    .header__author {
+      grid-row: 2/3;
+      grid-column: 1/2;
+      font-size: 18px;
+      font-weight: 200;
+    }
+    .header__creator {
+      grid-row: 1/2;
+      grid-column: 2/3;
+      font-size: 18px;
+      font-weight: 200;
+    }
+    .header__created {
+      grid-row: 2/3;
+      grid-column: 2/3;
+      font-size: 14px;
+      font-weight: 100;
+    }
+  }
+
+  .article__content::before {
+    width: 100%;
+    content: "";
+    margin-bottom: 15px;
+    height: 1px;
+    background: #11101d;
+    display: block;
+    position: relative;
+  }
+  .article__content {
+    margin: 30px 0px 30px 0px;
+    .article__text {
+      p {
+        max-height: 150px;
+        overflow-y: hidden;
+        // font-family: "Poppins";
+      }
+    }
+  }
+
+  .article__actions {
+    display: grid;
+    grid-template: 1fr / auto 1fr auto;
+    .votes {
+      grid-column: 1/2;
+      grid-row: 1/2;
+      display: flex;
+      i,
+      p {
+        font-size: 24px;
+      }
+
+      i {
+        cursor: pointer;
+      }
+    }
+    .good_vote {
+    }
+    .high__vote {
+    }
+    .low__vote {
+    }
+    .bad__vote {
+    }
+
+    .likes {
+      grid-column: 3/4;
+      grid-row: 1/2;
+      display: flex;
+      i,
+      p {
+        font-size: 24px;
+      }
+    }
+  }
+}

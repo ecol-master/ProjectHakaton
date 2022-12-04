@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import { Link } from "react-router-dom";
 
 import "./Sidebar.scss";
 
@@ -27,9 +28,40 @@ const Sidebar = (props) => {
       closeBtn.current.classList.replace("bx-menu-alt-right", "bx-menu");
     }
   }
+
+  const renderUserProfile = () => {
+    if (localStorage.getItem("is_authorization") == "true") {
+      return (
+        <li className="profile">
+          <div className="profile-details">
+            <div className="name_job">
+              <div className="name">{localStorage.getItem("user_name")}</div>
+              {/* <div class="job">Web designer</div> */}
+            </div>
+          </div>
+          <i
+            className="bx bx-log-out"
+            id="log_out"
+            ref={closeBtn}
+            onClick={closeBtnClick}
+          ></i>
+        </li>
+      );
+    }
+
+    return (
+      <li className="profile">
+        <Link to="/sign-in">
+          <i class="bx bx-log-in"></i>
+          <span class="links_name">Sign In</span>
+        </Link>
+        <span class="tooltip">Sign In</span>
+      </li>
+    );
+  };
+
   return (
     <>
-      {/* // <body className="sidebar-wrapper"> */}
       <div className="sidebar" ref={sidebar}>
         <div className="logo-details">
           <a href="https://icons8.com/icon/111049/t"></a>
@@ -50,6 +82,19 @@ const Sidebar = (props) => {
               <span className="links_name">User</span>
             </a>
             <span className="tooltip">User</span>
+          </li>
+          <li
+            className={
+              localStorage.getItem("is_authorization")
+                ? ""
+                : "hidden__list_item"
+            }
+          >
+            <Link to="/create_article">
+              <i class="bx bx-edit"></i>
+              <span className="links_name">Create Article</span>
+            </Link>
+            <span className="tooltip">Create Article</span>
           </li>
           {/* <li>
             <a href="#">
@@ -93,26 +138,9 @@ const Sidebar = (props) => {
             </a>
             <span class="tooltip">Setting</span>
           </li> */}
-          <li className="profile">
-            <div className="profile-details">
-              <div className="name_job">
-                <div className="name">Prem Shahi</div>
-                {/* <div class="job">Web designer</div> */}
-              </div>
-            </div>
-            <i
-              className="bx bx-log-out"
-              id="log_out"
-              ref={closeBtn}
-              onClick={closeBtnClick}
-            ></i>
-          </li>
+          {renderUserProfile()}
         </ul>
       </div>
-      {/* <section class="home-section">
-        <div class="text">Dashboard</div>
-      </section> */}
-      {/* </body> */}
     </>
   );
 };

@@ -2,13 +2,68 @@ import React from "react";
 import { useEffect, useState } from "react";
 
 import Sidebar from "./components/Sidebar/Sidebar";
+import Article from "../Articles/Article/Article";
 
 import "./Home.scss";
 
 const Home = () => {
-  const [isOpenSideBar, setIsOpenSideBar] = useState();
+  const [isOpenSideBar, setIsOpenSideBar] = useState(false);
 
-  useEffect(() => {});
+  const articleData = {
+    data: {
+      id: 1,
+      creator: "TestUser",
+      author: "Nikolay",
+      title: "Заголовок статьи.",
+      text: `
+      Lorem ipsum — классический текст-«рыба». Является искажённым отрывком
+      из философского трактата Марка Туллия Цицерона «О пределах добра и
+      зла», написанного в 45 году до н. э. на латинском языке, обнаружение
+      сходства приписывается Ричарду Макклинтоку.
+
+
+
+
+      Lorem ipsum — классический текст-«рыба». Является искажённым отрывком
+      из философского трактата Марка Туллия Цицерона «О пределах добра и
+      зла», написанного в 45 году до н. э. на латинском языке, обнаружение
+      сходства приписывается Ричарду Макклинтоку.
+
+      Lorem ipsum — классический текст-«рыба». Является искажённым отрывком
+      из философского трактата Марка Туллия Цицерона «О пределах добра и
+      зла», написанного в 45 году до н. э. на латинском языке, обнаружение
+      сходства приписывается Ричарду Макклинтоку.
+
+
+      Lorem ipsum — классический текст-«рыба». Является искажённым отрывком
+      из философского трактата Марка Туллия Цицерона «О пределах добра и
+      зла», написанного в 45 году до н. э. на латинском языке, обнаружение
+      сходства приписывается Ричарду Макклинтоку.`,
+      created: "04-12-2022",
+      likes: 0,
+    },
+    message: "succesful response",
+    error: false,
+  };
+
+  useEffect(() => {}, []);
+
+  const renderArticles = () => {
+    const publishArticleUrlAPI = "http://127.0.0.1:8000/api/v1/";
+
+    fetch(signUpUrlAPI, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setError(getErrorFromData(data));
+      });
+  };
+
   return (
     <div className="home">
       {console.log(isOpenSideBar)}
@@ -19,7 +74,42 @@ const Home = () => {
       <main
         className={`home__section ${isOpenSideBar == true ? "is_open" : ""}`}
       >
-        <p>
+        <div className="articles">
+          <Article
+            title={articleData.data.title}
+            author={articleData.data.author}
+            creator={articleData.data.creator}
+            created={articleData.data.created}
+            text={articleData.data.text}
+            likes={articleData.data.likes}
+          />
+          <Article
+            title={articleData.data.title}
+            author={articleData.data.author}
+            creator={articleData.data.creator}
+            created={articleData.data.created}
+            text={articleData.data.text}
+            likes={articleData.data.likes}
+          />
+          <Article
+            title={articleData.data.title}
+            author={articleData.data.author}
+            creator={articleData.data.creator}
+            created={articleData.data.created}
+            text={articleData.data.text}
+            likes={articleData.data.likes}
+          />
+          <Article
+            title={articleData.data.title}
+            author={articleData.data.author}
+            creator={articleData.data.creator}
+            created={articleData.data.created}
+            text={articleData.data.text}
+            likes={articleData.data.likes}
+          />
+        </div>
+
+        {/* <p>
           Lorem ipsum — классический текст-«рыба». Является искажённым отрывком
           из философского трактата Марка Туллия Цицерона «О пределах добра и
           зла», написанного в 45 году до н. э. на латинском языке, обнаружение
@@ -114,7 +204,7 @@ const Home = () => {
           из философского трактата Марка Туллия Цицерона «О пределах добра и
           зла», написанного в 45 году до н. э. на латинском языке, обнаружение
           сходства приписывается Ричарду Макклинтоку.
-        </p>
+        </p> */}
       </main>
     </div>
   );

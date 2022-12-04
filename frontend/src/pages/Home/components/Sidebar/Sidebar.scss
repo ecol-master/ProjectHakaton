@@ -171,6 +171,13 @@
   font-size: 18px;
   border-radius: 12px;
 }
+
+.hidden__list_item {
+  display: none;
+  visibility: hidden;
+  
+}
+
 .sidebar li.profile {
   position: fixed;
   height: 60px;

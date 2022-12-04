@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 const NoteHeaderTextarea = (props) => {
   const textArea = React.createRef();
 
-  const value = useInput();
+  const value = props.value;
   const isMaxScreenSize = useMediaQuery({ query: "(min-width:1200px)" });
   const isMiddleScreenSize = useMediaQuery({
     query: "(max-width: 1200px) and (min-width:769px)",
