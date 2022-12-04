@@ -12,7 +12,7 @@ urlpatterns = [
 
     # Получить любого пользователя по username
     path('users/retrieve/<str:username>/', RetrieveUserAPIView.as_view(), name='retrieveUser'),
-    path('users/retrieve/fromId/<int:pk>/', RetrieveUserFromIdAPIView.as_view(), name='retrieveUserFromId'),
+    path('users/retrieve/<int:pk>/', RetrieveUserFromIdAPIView.as_view(), name='retrieveUserFromId'),
 
     path('articles/createArticle/', CreateArticleAPIView.as_view(), name='createArticle'),
     path('articles/retrieve/<int:pk>/', RetrieveArticleAPIView.as_view(), name='retrieveArticle'),

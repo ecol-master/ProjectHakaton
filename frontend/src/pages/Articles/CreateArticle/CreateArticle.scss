@@ -15,6 +15,7 @@
     grid-column: 1/2;
     margin: 30px 0px 40px 0px;
     height: fit-content;
+    display: flex;
 
     button {
       justify-self: center;
@@ -29,9 +30,40 @@
       border-radius: 16px;
       text-transform: uppercase;
       padding: 5px 0px;
-      margin: 0 0 15px;
+      margin: 0 20px 15px 0px;
       background-color: #fff;
       cursor: pointer;
+    }
+
+    .error__box {
+      width: 200px;
+      text-align: center;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      margin: 0 auto 20px auto;
+      text-decoration: none;
+
+      .error__box_message {
+        font-family: "Roboto";
+        color: rgba(255, 255, 255, 0.6);
+        padding: 7px 12px;
+        font-size: 14px;
+      }
+    }
+
+    .success {
+      background-color: #72be81;
+    }
+
+    .failed {
+      background-color: #b67575;
+    }
+
+    .hidden {
+      display: none;
+      visibility: hidden;
+      width: 0;
+      height: 0;
     }
   }
 }

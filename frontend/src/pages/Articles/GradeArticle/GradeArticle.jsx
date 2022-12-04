@@ -1,11 +1,13 @@
 import React from "react";
 import { useState } from "react";
 import Sidebar from "../../Home/components/Sidebar/Sidebar";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 import "./GradeArticle.scss";
 
 const GradeArticle = () => {
   const [isOpenSideBar, setIsOpenSideBar] = useState(false);
+  const navigate = useNavigate();
 
   const [vote1Count, setVote1Count] = useState(0);
   const [vote2Count, setVote2Count] = useState(0);
@@ -105,6 +107,37 @@ const GradeArticle = () => {
   `;
   const creator = "User";
   const created = "22-04-2222";
+
+  const onClickFinishGrade = () => {
+    const data = {
+      article: Number(localStorage.getItem("article_id")),
+      user: Number(localStorage.getItem("user_id")),
+      c1: vote1Count,
+      c2: vote2Count,
+      c3: vote3Count,
+      c4: vote4Count,
+      c5: vote5Count,
+      c6: vote6Count,
+      c7: vote7Count,
+      c8: vote8Count,
+    };
+    console.log(data);
+
+    const setGradesUrlAPI =
+      "http://127.0.0.1:8000/api/v1/articles/setExpertCriteria/";
+    fetch(setGradesUrlAPI, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        navigate("/");
+      });
+  };
 
   return (
     <div className="grade__article">
@@ -337,6 +370,10 @@ const GradeArticle = () => {
               </div>
             </li>
           </ul>
+
+          <Link onClick={onClickFinishGrade} to="/">
+            Завершить оценку.
+          </Link>
         </div>
       </main>
     </div>
