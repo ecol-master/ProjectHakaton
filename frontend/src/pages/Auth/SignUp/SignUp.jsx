@@ -17,7 +17,6 @@ const SignUp = () => {
   const [error, setError] = useState({ message: null, status_code: 0 });
 
   const getErrorFromData = (data) => {
-    console.log(data);
     const dataKeys = Object.keys(data);
     if (dataKeys.includes("email")) {
       return { message: "Enter a valid email address.", status_code: 400 };

@@ -48,7 +48,6 @@ const Home = () => {
   };
   return (
     <div className="home">
-      {console.log(isOpenSideBar)}
       <Sidebar
         setIsOpenSideBar={setIsOpenSideBar}
         isOpenSideBar={isOpenSideBar}

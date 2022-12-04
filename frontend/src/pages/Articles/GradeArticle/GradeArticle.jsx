@@ -61,7 +61,6 @@ const GradeArticle = () => {
       c7: vote7Count,
       c8: vote8Count,
     };
-    console.log(data);
 
     const setGradesUrlAPI =
       "http://127.0.0.1:8000/api/v1/articles/setExpertCriteria/";

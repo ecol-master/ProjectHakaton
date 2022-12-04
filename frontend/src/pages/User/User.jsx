@@ -29,8 +29,7 @@ const User = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        // setUserInfo(data.data);
-        console.log(data.data);
+        setUserInfo(data.data);
       });
   };
 
@@ -49,7 +48,6 @@ const User = () => {
       .then((response) => response.json())
       .then((data) => {
         setUserArticles(data.data);
-        console.log(data);
       });
   };
 
@@ -109,7 +107,6 @@ const User = () => {
 
   return (
     <div className="user">
-      {console.log(isOpenSideBar)}
       <Sidebar
         setIsOpenSideBar={setIsOpenSideBar}
         isOpenSideBar={isOpenSideBar}
