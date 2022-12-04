@@ -56,10 +56,10 @@ print()
 # pprint.pprint(method('articles/list', post=False))
 print()
 # pprint.pprint(method('articles/createArticle', data={
-#     'title': 'Дмитрий кузьмин',
-#     'author': 'Jaba',
+#     'title': 'Заголовок статьи',
+#     'author': 'YolkinEgor',
 #     'creator': 1,
-#     'text': 'ПОстик #2',
+#     'text': 'Текст статьи. Lorem ipsum',
 # }))
 
 # pprint.pprint(method('articles/setExpertCriteria', data={

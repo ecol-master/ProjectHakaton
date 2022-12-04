@@ -162,8 +162,8 @@ class SetExpertArticleCriteria(APIView):
 
 
 class ListPopularArticlesAPIView(ListAPIView):
-    raw_queryset = ArticleCriteria.objects.all()
-    serializer_class = ListArticleCriteriaSerializer
+    raw_queryset = Article.objects.all()
+    serializer_class = RetrieveArticleSerializer
 
     def list(self, request, *args, **kwargs):
         raw_queryset = ArticleCriteria.objects.all()
@@ -175,7 +175,12 @@ class ListPopularArticlesAPIView(ListAPIView):
         clear_queryset = []
         for model in raw_queryset:
             clear_queryset.append(queryset[model])
-        queryset = reversed(clear_queryset)
+        сriteria_queryset = reversed(clear_queryset)
+        queryset = []
+
+        for criteria in сriteria_queryset:
+            article = Article.objects.get(pk=criteria.article.pk)
+            queryset.append(article)
 
         page = self.paginate_queryset(queryset)
         if page is not None:
