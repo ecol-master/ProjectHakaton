@@ -1,9 +1,13 @@
 import React from "react";
 import { useState } from "react";
 
+import { Link, useNavigate } from "react-router-dom";
+
 import "./Article.scss";
 
 const Article = (props) => {
+  const navigate = useNavigate();
+
   const [voteCount, setVoteCount] = useState(0);
 
   const onClickUpVote = () => {
@@ -16,6 +20,10 @@ const Article = (props) => {
     if (voteCount > -10) {
       setVoteCount(voteCount - 1);
     }
+  };
+
+  const renderGradeButton = () => {
+    return <Link to="/grade_article">Оценить</Link>;
   };
 
   const getClassNameVoteCount = () => {
@@ -43,20 +51,20 @@ const Article = (props) => {
         <div className="article__text">
           <p>{props.text}</p>
         </div>
-
-        <button className="read__more"></button>
       </div>
 
       <div className="article__actions">
+        {renderGradeButton()}
+
         <div className="votes">
-          <i onClick={onClickDownVote} class="bx bx-down-arrow-alt"></i>
+          <i onClick={onClickDownVote} className="bx bx-down-arrow-alt"></i>
           <p>{voteCount}</p>
 
-          <i onClick={onClickUpVote} class="bx bx-up-arrow-alt"></i>
+          <i onClick={onClickUpVote} className="bx bx-up-arrow-alt"></i>
         </div>
 
         <div className="likes">
-          <i class="bx bxs-like"></i>
+          <i className="bx bxs-like"></i>
           <p>{props.likes}</p>
         </div>
       </div>

@@ -36,13 +36,14 @@ const CreateArticle = () => {
     };
 
     if (!isValuesNotEmpty()) {
-      const publishArticleUrlAPI = "http://127.0.0.1:8000/api/v1/registration/";
+      const publishArticleUrlAPI =
+        "http://127.0.0.1:8000/api/v1/articles/createArticle/";
       const data = {
-        user_id: localStorage.getItem("user_id"),
         author: author.value,
         title: title.value,
-        content: content.value,
+        text: content.value,
       };
+      console.log(data);
 
       fetch(publishArticleUrlAPI, {
         method: "POST",
@@ -54,7 +55,7 @@ const CreateArticle = () => {
       })
         .then((response) => response.json())
         .then((data) => {
-          setError(getErrorFromData(data));
+          console.log(data);
         });
     } else {
       setError({
