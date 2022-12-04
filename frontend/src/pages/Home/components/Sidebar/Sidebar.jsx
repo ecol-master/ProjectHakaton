@@ -52,10 +52,10 @@ const Sidebar = (props) => {
     return (
       <li className="profile">
         <Link to="/sign-in">
-          <i class="bx bx-log-in"></i>
-          <span class="links_name">Sign In</span>
+          <i className="bx bx-log-in"></i>
+          <span className="links_name">Sign In</span>
         </Link>
-        <span class="tooltip">Sign In</span>
+        <span className="tooltip">Sign In</span>
       </li>
     );
   };
@@ -70,17 +70,17 @@ const Sidebar = (props) => {
         </div>
         <ul className="nav-list">
           <li>
-            <a href="#">
+            <Link to="../">
               <i className="bx bx-grid-alt"></i>
               <span className="links_name">Articles</span>
-            </a>
+            </Link>
             <span className="tooltip">Articles</span>
           </li>
           <li>
-            <a href="#">
+            <Link to="/user">
               <i className="bx bx-user"></i>
               <span className="links_name">User</span>
-            </a>
+            </Link>
             <span className="tooltip">User</span>
           </li>
           <li
@@ -91,7 +91,7 @@ const Sidebar = (props) => {
             }
           >
             <Link to="/create_article">
-              <i class="bx bx-edit"></i>
+              <i className="bx bx-edit"></i>
               <span className="links_name">Create Article</span>
             </Link>
             <span className="tooltip">Create Article</span>

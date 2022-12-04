@@ -76,6 +76,7 @@ const Home = () => {
       >
         <div className="articles">
           <Article
+            article_id={articleData.data.id}
             title={articleData.data.title}
             author={articleData.data.author}
             creator={articleData.data.creator}
@@ -84,6 +85,7 @@ const Home = () => {
             likes={articleData.data.likes}
           />
           <Article
+            article_id={articleData.data.id}
             title={articleData.data.title}
             author={articleData.data.author}
             creator={articleData.data.creator}
@@ -92,6 +94,7 @@ const Home = () => {
             likes={articleData.data.likes}
           />
           <Article
+            article_id={articleData.data.id}
             title={articleData.data.title}
             author={articleData.data.author}
             creator={articleData.data.creator}
@@ -100,6 +103,7 @@ const Home = () => {
             likes={articleData.data.likes}
           />
           <Article
+            article_id={articleData.data.id}
             title={articleData.data.title}
             author={articleData.data.author}
             creator={articleData.data.creator}
