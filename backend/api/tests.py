@@ -42,9 +42,9 @@ def auth(login: str, password: str, login_value: str = 'email'):
     return response.json()
 
 
-pprint.pprint(auth('TestUser3@gmail.com', 'dRh4PzhjP2vwCDZ'))
+# pprint.pprint(auth('TestUser3@gmail.com', 'dRh4PzhjP2vwCDZ'))
 print()
-pprint.pprint(method('articles/list/TestUser3', post=False))
+# pprint.pprint(method('articles/list', post=False))
 print()
 # pprint.pprint(method('articles/retrieve/3', data={
 #     'title': 'Дмитрий кузьмин',
@@ -52,8 +52,14 @@ print()
 #     'text': 'Дмитрий кузьмин малышечка сосочка девочка я бы ему отлизал <3',
 # }, post=False))
 
-# pprint.pprint(method('articles/createArticle', data={
-#     'title': 'Дмитрий кузьмин',
-#     'author': 'YolkinEgor',
-#     'text': 'Дмитрий кузьмин малышечка сосочка девочка я бы ему отлизал <3',
-# }))
+pprint.pprint(method('articles/setExpertCriteria', data={
+    'article': 5,
+    'user': 3,
+    'c1': 5,
+    'c2': 15
+}))
+pprint.pprint(method('articles/retrieveExpertCriteria', data={
+    'article': 5,
+    'user': 3,
+    'c1': 5
+}, post=False))
