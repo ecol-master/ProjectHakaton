@@ -68,3 +68,9 @@ class ArticleCriteriaSerializer(serializers.ModelSerializer):
     class Meta:
         model = ArticleCriteria
         fields = '__all__'
+
+
+class ArticleUsersCriteriaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ArticleUsersCriteria
+        fields = '__all__'

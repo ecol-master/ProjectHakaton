@@ -22,6 +22,9 @@ urlpatterns = [
     # получить оценку эксперта по его ID и ID статьи
     path('articles/retrieveExpertCriteria/', RetrieveExpertArticleCriteria.as_view()),
 
-
+    # установить оценку пользователя
+    path('articles/setUsersCriteria/', SetUsersArticleCriteria.as_view()),
+    # получить оценку пользователя по его ID и ID статьи
+    path('articles/retrieveUsersCriteria/', RetrieveUsersArticleCriteria.as_view()),
 
 ]

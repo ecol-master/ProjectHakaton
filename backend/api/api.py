@@ -124,11 +124,9 @@ class SetExpertArticleCriteria(APIView):
                 instance = ArticleCriteria()
             else:
                 instance = ArticleCriteria.objects.get(user=user, article=article)
-            print(request.data)
             for param in request.data:
                 try:
                     setattr(instance, param, int(request.data[param]))
-                    print(param, request.data[param])
                 except:
                     pass
             instance.article = article
@@ -147,6 +145,38 @@ class RetrieveExpertArticleCriteria(CustomRetrieveAPIView):
 
     def get_object(self):
         object = ArticleCriteria.objects.get(
+            user__pk=self.request.data['user'],
+            article__pk=self.request.data['article'])
+        return object
+
+
+class SetUsersArticleCriteria(APIView):
+    def post(self, request, *args, **kwargs):
+        serializer = ArticleUsersCriteriaSerializer(data=request.data)
+        if serializer.is_valid():
+            article = Article.objects.get(pk=request.data['article'])
+            user = CustomUser.objects.get(pk=request.data['user'])
+            if not ArticleUsersCriteria.objects.filter(user=user, article=article):
+                instance = ArticleUsersCriteria()
+            else:
+                instance = ArticleUsersCriteria.objects.get(user=user, article=article)
+            instance.c = request.data['c']
+            instance.article = article
+            instance.user = user
+            instance.save()
+            return CustomResponse.make_response(message='Изменения сохранены.',
+                                                data={'id': instance.pk})
+        else:
+            return CustomResponse.make_response(error=True,
+                                                data=serializer.errors)
+
+
+class RetrieveUsersArticleCriteria(CustomRetrieveAPIView):
+    queryset = Article
+    serializer_class = ArticleUsersCriteriaSerializer
+
+    def get_object(self):
+        object = ArticleUsersCriteria.objects.get(
             user__pk=self.request.data['user'],
             article__pk=self.request.data['article'])
         return object
