@@ -1,0 +1,88 @@
+@mixin set-font-styles($font-size, $font-weight) {
+  font-family: CustomSansSerif, "Lucida Grande", Arial, sans-serif;
+  font-size: $font-size;
+  font-weight: $font-weight;
+}
+
+.note__content {
+  grid-row: 2/3;
+  grid-column: 1/2;
+  padding-top: 30px;
+  display: flex;
+  flex-direction: column;
+
+  > div {
+    margin: 10px 0px;
+    align-items: center;
+    .note__wrapper {
+      position: relative;
+      display: inline-flex;
+      width: 100%;
+    }
+    textarea,
+    textarea:focus {
+      display: inline;
+      width: 100%;
+      border: 0;
+      outline: 0;
+      z-index: 2;
+      resize: none;
+      padding: 0;
+      color: rgba(0, 0, 0, 0.8);
+      background-color: white;
+    }
+    span {
+      z-index: 1;
+      color: rgba(0, 0, 0, 0.44);
+      display: inline;
+    }
+
+    &.note__content_text {
+      textarea {
+        @include set-font-styles(32px, 500);
+      }
+    }
+  }
+}
+@media (min-width: 1200px) {
+//   .note__content {
+//     max-width: 1100px;
+//     margin: 0 auto;
+//   }
+}
+
+@media (max-width: 1199px) and (min-width: 769px) {
+  .note__content {
+    > div {
+      &.note__content_text {
+        textarea {
+          @include set-font-styles(30px, 500);
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .note__content {
+    > div {
+      &.note__content_text {
+        textarea {
+          @include set-font-styles(24px, 500);
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .note__content {
+    > div {
+      &.note__content_text {
+        textarea {
+          @include set-font-styles(24px, 500);
+        }
+      }
+    }
+  }
+}
