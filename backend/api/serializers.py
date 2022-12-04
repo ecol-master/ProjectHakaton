@@ -37,7 +37,7 @@ class RetrieveUserSerializer(serializers.ModelSerializer):
         model = CustomUser
         fields = ('id', 'is_superuser',
                   'username', 'email',
-                  'is_active',)
+                  'is_active', 'is_expert',)
 
 
 class CreateArticleSerializer(serializers.ModelSerializer):
