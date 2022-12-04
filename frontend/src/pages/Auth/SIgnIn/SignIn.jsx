@@ -22,8 +22,15 @@ const SignIn = () => {
   }, [error]);
 
   const getErrorFromData = (data) => {
+    console.log(data);
     const dataKeys = Object.keys(data);
-    console.log(data, dataKeys);
+    if (data.error === false) {
+      localStorage.setItem("user_id", data.data.id);
+      localStorage.setItem("user_name", data.data.username);
+      localStorage.setItem("user_email", data.data.email);
+      localStorage.setItem("is_authorization", true);
+    }
+    return { message: data.message, status_code: data.status_code };
   };
 
   const onClickSubmit = () => {
@@ -42,7 +49,7 @@ const SignIn = () => {
       const signUpUrlAPI = "http://127.0.0.1:8000/api/v1/authorization/";
       const data = {
         email: inputEmail.value,
-        password: inputPassword.value
+        password: inputPassword.value,
       };
 
       fetch(signUpUrlAPI, {
@@ -55,7 +62,10 @@ const SignIn = () => {
       })
         .then((response) => response.json())
         .then((data) => {
-          getErrorFromData(data);
+          setError(getErrorFromData(data));
+          {
+            console.log(Object.keys(localStorage), localStorage);
+          }
         });
     } else {
       let classNameBox = "";
@@ -79,9 +89,24 @@ const SignIn = () => {
   };
 
   const renderMessageBox = () => {
+    let classNameBox = "";
+    switch (error.status_code) {
+      case 200:
+        classNameBox = "success";
+        break;
+      case 400:
+        classNameBox = "failed";
+        break;
+      case 0:
+        classNameBox = "hidden";
+        break;
+    }
+
     return (
-      <div>
-        <h3 className="sign_up__error_box"></h3>
+      <div className={`error__box ${classNameBox}`}>
+        <h3 className="error__box_message">
+          {error.status_code == 0 ? "" : error.message}
+        </h3>
       </div>
     );
   };

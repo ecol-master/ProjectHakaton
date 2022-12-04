@@ -17,16 +17,22 @@ const SignUp = () => {
   const [error, setError] = useState({ message: null, status_code: 0 });
 
   const getErrorFromData = (data) => {
+    console.log(data);
     const dataKeys = Object.keys(data);
     if (dataKeys.includes("email")) {
       return { message: "Enter a valid email address.", status_code: 400 };
     } else if (dataKeys.includes("username")) {
       return {
-        message: "Ensure username field has at least 4 characters",
+        message: data.username[0],
         status_code: 400,
       };
     }
-
+    if (data.error == false) {
+      localStorage.setItem("user_id", data.data.id);
+      localStorage.setItem("user_name", data.data.username);
+      localStorage.setItem("user_email", data.data.email);
+      localStorage.setItem("is_authorization", true);
+    }
     return { message: data.message, status_code: data.status_code };
   };
 

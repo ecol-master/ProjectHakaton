@@ -2,7 +2,7 @@
 
 .home {
   display: grid;
-  grid-template-columns: minmax(78px, auto) 1fr 200px;
+  grid-template-columns: minmax(78px, auto) 1fr 100px;
   grid-template-rows: 1fr;
 
   .home__section {
@@ -11,7 +11,7 @@
     position: relative;
     min-height: 100vh;
     top: 0;
-    left: 78px;
+    left: 28px;
     width: calc(100% - 78px);
     transition: all 0.5s ease;
     z-index: 2;
@@ -20,6 +20,13 @@
       font-family: "Poppins";
       font-weight: 300px;
     }
+  }
+
+  .articles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    column-gap: 30px;
+    row-gap: 50px;
   }
 
   .home__section.is_open {

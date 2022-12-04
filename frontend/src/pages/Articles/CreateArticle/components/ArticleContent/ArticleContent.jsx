@@ -4,13 +4,12 @@ import useInput from "../../../../../hooks/useInput";
 import { useMediaQuery } from "react-responsive";
 import { useEffect, useState } from "react";
 
+import "./ArticleContent.scss";
 
-import "./ArticleContent.scss"
-
-const NoteContent = () => {
+const ArticleContent = (props) => {
   const textArea = React.createRef();
 
-  const value = useInput();
+  const value = props.content;
 
   const titleSizes = { maxSize: "36px", middleSize: "34px", minSize: "30px" };
 
@@ -67,4 +66,4 @@ const NoteContent = () => {
     </div>
   );
 };
-export default NoteContent;
+export default ArticleContent;

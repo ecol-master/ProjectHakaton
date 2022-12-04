@@ -5,7 +5,7 @@ import NoteHeaderTextarea from "./ArticleHeader.textarea";
 
 import "./ArticleHeader.scss";
 
-const NoteHeader = () => {
+const ArticleHeader = (props) => {
   const [titleClassName, setTitleClassName] = useState("empty");
   const titleSizes = { maxSize: "36px", middleSize: "34px", minSize: "30px" };
 
@@ -16,6 +16,7 @@ const NoteHeader = () => {
       <div className={`note__title ${titleClassName}`}>
         <div className="note__wrapper">
           <NoteHeaderTextarea
+            value={props.title}
             placeholder={"Title"}
             sizes={titleSizes}
             parentNodeClassName={titleClassName}
@@ -27,6 +28,7 @@ const NoteHeader = () => {
       <div className={`note__author ${authorClassName}`}>
         <div className="note__wrapper">
           <NoteHeaderTextarea
+            value={props.author}
             placeholder={"Author"}
             sizes={authorSizes}
             parentNodeClassName={authorClassName}
@@ -37,4 +39,4 @@ const NoteHeader = () => {
     </div>
   );
 };
-export default NoteHeader;
+export default ArticleHeader;
