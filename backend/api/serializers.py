@@ -12,7 +12,7 @@ class AuthorizationUserSerializer(serializers.Serializer):
 
 
 class RegistrationUserSerializer(serializers.Serializer):
-    username = serializers.CharField(min_length=4, max_length=12,
+    username = serializers.CharField(min_length=4, max_length=30,
                                      help_text=('Укажите ваше имя '
                                                 'пользователя (никнейм).'))
     email = serializers.EmailField(help_text=('Укажите адрес '
@@ -37,4 +37,26 @@ class RetrieveUserSerializer(serializers.ModelSerializer):
         model = CustomUser
         fields = ('id', 'is_superuser',
                   'username', 'email',
-                  'is_active',)
+                  'is_active', 'is_expert',)
+
+
+class CreateArticleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Article
+        exclude = ('created', 'creator')
+
+    def create(self, validated_data, *args, **kwargs):
+        model = Article()
+        model.text = validated_data['text']
+        model.title = validated_data['title']
+        model.author = validated_data['author']
+        model.creator = kwargs['request'].user
+        model.save()
+
+        return {'id': model.pk, 'creator': model.creator.username}
+
+
+class RetrieveArticleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Article
+        fields = '__all__'

@@ -8,6 +8,13 @@ from .serializers import *
 from .base.response import CustomResponse
 
 
+class CustomRetrieveAPIView(RetrieveAPIView):
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        return CustomResponse.make_response(serializer.data)
+
+
 class RegistrationAPIView(APIView):
     def post(self, request, *args, **kwargs):
         serializer = RegistrationUserSerializer(data=request.data)
@@ -57,7 +64,7 @@ class LogoutAPIView(APIView):
         return CustomResponse.make_response(message='Произведён выход из аккаунта.')
 
 
-class GetMeAPIView(RetrieveAPIView):
+class RetrieveMeAPIView(CustomRetrieveAPIView):
     queryset = CustomUser
     serializer_class = RetrieveUserSerializer
     permission_classes = [IsAuthenticated, ]
@@ -66,7 +73,43 @@ class GetMeAPIView(RetrieveAPIView):
         return self.request.user
 
 
-class GetUserAPIView(RetrieveAPIView):
+class RetrieveUserAPIView(CustomRetrieveAPIView):
     queryset = CustomUser
     serializer_class = RetrieveUserSerializer
     lookup_field = 'username'
+
+
+class CreateArticleAPIView(APIView):
+    permission_classes = [IsAuthenticated, ]
+
+    def post(self, request, *args, **kwargs):
+        serializer = CreateArticleSerializer(data=request.data)
+
+        if serializer.is_valid(raise_exception=True):
+            response = serializer.create(serializer.validated_data, request=request)
+            return CustomResponse.make_response(response, message='Статья опубликована.')
+        else:
+            return CustomResponse.make_response(error=True,
+                                                data=serializer.errors)
+
+
+class RetrieveArticleAPIView(CustomRetrieveAPIView):
+    queryset = Article
+    serializer_class = RetrieveArticleSerializer
+    lookup_field = 'pk'
+
+
+class ListArticlesAPIView(ListAPIView):
+    queryset = Article.objects.all().order_by('-created')
+    serializer_class = RetrieveArticleSerializer
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(queryset, many=True)
+        return CustomResponse.make_response(serializer.data)

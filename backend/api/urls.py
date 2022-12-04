@@ -8,8 +8,12 @@ urlpatterns = [
     path('logout/', LogoutAPIView.as_view(), name='logout'),
 
     # Получить текущего пользователя
-    path('users/me/', GetMeAPIView.as_view(), name='getMe'),
+    path('users/retrieve/me/', RetrieveMeAPIView.as_view(), name='retrieveMe'),
 
     # Получить любого пользователя по username
-    path('users/<str:username>/', GetUserAPIView.as_view(), name='getUser'),
+    path('users/retrieve/<str:username>/', RetrieveUserAPIView.as_view(), name='retrieveUser'),
+
+    path('articles/createArticle/', CreateArticleAPIView.as_view(), name='createArticle'),
+    path('articles/retrieve/<int:pk>/', RetrieveArticleAPIView.as_view(), name='retrieveArticle'),
+    path('articles/list/<str:username>/', ListArticlesAPIView.as_view(), name='ListArticles'),
 ]
