@@ -80,6 +80,12 @@ class RetrieveUserAPIView(CustomRetrieveAPIView):
     lookup_field = 'username'
 
 
+class RetrieveUserFromIdAPIView(CustomRetrieveAPIView):
+    queryset = CustomUser
+    serializer_class = RetrieveUserSerializer
+    lookup_field = 'pk'
+
+
 class CreateArticleAPIView(APIView):
     def post(self, request, *args, **kwargs):
         serializer = CreateArticleSerializer(data=request.data)
