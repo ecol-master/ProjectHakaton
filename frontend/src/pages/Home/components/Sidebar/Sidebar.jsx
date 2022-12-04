@@ -70,7 +70,7 @@ const Sidebar = (props) => {
         </div>
         <ul className="nav-list">
           <li>
-            <Link to="../">
+            <Link to="/">
               <i className="bx bx-grid-alt"></i>
               <span className="links_name">Articles</span>
             </Link>
@@ -104,10 +104,10 @@ const Sidebar = (props) => {
             <span class="tooltip">Messages</span>
           </li> */}
           <li>
-            <a href="#">
+            <Link to="/analytics">
               <i className="bx bx-pie-chart-alt-2"></i>
               <span className="links_name">Analytics</span>
-            </a>
+            </Link>
             <span className="tooltip">Analytics</span>
           </li>
           {/* <li>
@@ -124,13 +124,13 @@ const Sidebar = (props) => {
             </a>
             <span class="tooltip">Order</span>
           </li> */}
-          <li>
-            <a href="#">
+          {/* <li>
+            <Link to="/analytics">
               <i className="bx bx-heart"></i>
               <span className="links_name">Saved</span>
-            </a>
+            </Link>
             <span className="tooltip">Saved</span>
-          </li>
+          </li> */}
           {/* <li>
             <a href="#">
               <i class="bx bx-cog"></i>

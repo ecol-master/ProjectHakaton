@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Sidebar from "../../Home/components/Sidebar/Sidebar";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 
@@ -18,95 +18,35 @@ const GradeArticle = () => {
   const [vote7Count, setVote7Count] = useState(0);
   const [vote8Count, setVote8Count] = useState(0);
 
-  const title = "Title";
-  const author = "Author";
-  const text = `createdcreatedcreatedcreatedcreatedcreatedcreated
-            createdcreatedcreatedcreatedcreatedcreatedcreated
-            createdcreatedcreatedcreatedcreatedcreatedcreated
-            createdcreatedcreatedcreatedcreatedcreatedcreated
-            createdcreatedcreatedcreatedcreatedcreatedcreated
-                createdcreatedcreatedcreatedcreatedcreatedcreated
+  const [title, setTitle] = useState("");
+  const [author, setАuthor] = useState("");
+  const [text, setText] = useState("");
+  const [creator, setCreator] = useState("");
+  const [created, setCreated] = useState("");
 
-  <var>
-  createdcreatedcreatedcreatedcreatedcreatedcreated
-  
-  
-  createdcreatedcreatedcreatedcreatedcreatedcreated</var>
-  Логическое преобразование
-
-Логическое преобразование самое простое.
-
-Происходит в логических операциях (позже мы познакомимся с условными проверками и подобными конструкциями), но также может быть выполнено явно с помощью функции Boolean(value).
-
-Правило преобразования:
-
-    Значения, которые интуитивно «пустые», вроде 0, пустой строки, null, undefined и NaN, становятся false.
-    Все остальные значения становятся true.
-
-Например:
-Логическое преобразование
-
-Логическое преобразование самое простое.
-
-Происходит в логических операциях (позже мы познакомимся с условными проверками и подобными конструкциями), но также может быть выполнено явно с помощью функции Boolean(value).
-
-Правило преобразования:
-
-    Значения, которые интуитивно «пустые», вроде 0, пустой строки, null, undefined и NaN, становятся false.
-    Все остальные значения становятся true.
-
-Например:
-Логическое преобразование
-
-Логическое преобразование самое простое.
-
-Происходит в логических операциях (позже мы познакомимся с условными проверками и подобными конструкциями), но также может быть выполнено явно с помощью функции Boolean(value).
-
-Правило преобразования:
-
-    Значения, которые интуитивно «пустые», вроде 0, пустой строки, null, undefined и NaN, становятся false.
-    Все остальные значения становятся true.
-
-Например:
-Логическое преобразование
-
-Логическое преобразование самое простое.
-
-Происходит в логических операциях (позже мы познакомимся с условными проверками и подобными конструкциями), но также может быть выполнено явно с помощью функции Boolean(value).
-
-Правило преобразования:
-
-    Значения, которые интуитивно «пустые», вроде 0, пустой строки, null, undefined и NaN, становятся false.
-    Все остальные значения становятся true.
-
-Например:
-Логическое преобразование
-
-Логическое преобразование самое простое.
-
-Происходит в логических операциях (позже мы познакомимся с условными проверками и подобными конструкциями), но также может быть выполнено явно с помощью функции Boolean(value).
-
-Правило преобразования:
-
-    Значения, которые интуитивно «пустые», вроде 0, пустой строки, null, undefined и NaN, становятся false.
-    Все остальные значения становятся true.
-
-Например:
-Логическое преобразование
-
-Логическое преобразование самое простое.
-
-Происходит в логических операциях (позже мы познакомимся с условными проверками и подобными конструкциями), но также может быть выполнено явно с помощью функции Boolean(value).
-
-Правило преобразования:
-
-    Значения, которые интуитивно «пустые», вроде 0, пустой строки, null, undefined и NaN, становятся false.
-    Все остальные значения становятся true.
-
-Например:
-  `;
-  const creator = "User";
-  const created = "22-04-2222";
+  let getArticleInfo = () => {
+    const article = Number(localStorage.getItem("article_id"));
+    const getArticle = `http://127.0.0.1:8000/api/v1/articles/retrieve/${article}/`;
+    fetch(getArticle, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        let d = data.data;
+        setTitle(d.title);
+        setАuthor(d.author);
+        setText(d.text);
+        setCreator(d.creator);
+        setCreated(d.created);
+      });
+  };
+  useEffect(() => {
+    getArticleInfo();
+  }, []);
 
   const onClickFinishGrade = () => {
     const data = {
@@ -135,6 +75,7 @@ const GradeArticle = () => {
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log(data);
         navigate("/");
       });
   };
