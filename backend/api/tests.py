@@ -42,23 +42,32 @@ def auth(login: str, password: str, login_value: str = 'email'):
     return response.json()
 
 
-# pprint.pprint(auth('TestUser3@gmail.com', 'dRh4PzhjP2vwCDZ'))
+def registration(login: str, password: str, username: str, login_value: str = 'email'):
+    global session, csrfmiddlewaretoken
+    response = session.post(api_url + 'registration/', data={login_value: login, 'password': password, 'username': username})
+    # csrftoken = response.cookies['csrftoken']
+    # csrfmiddlewaretoken = csrftoken
+
+    return response.json()
+
+
+pprint.pprint(auth('TestUser@gmail.com', 'dRh4PzhjP2vwCDZ'))
 print()
 # pprint.pprint(method('articles/list', post=False))
 print()
-# pprint.pprint(method('articles/retrieve/3', data={
+# pprint.pprint(method('articles/createArticle', data={
 #     'title': 'Дмитрий кузьмин',
-#     'author': 'YolkinEgor',
-#     'text': 'Дмитрий кузьмин малышечка сосочка девочка я бы ему отлизал <3',
-# }, post=False))
+#     'author': 'Jaba',
+#     'creator': 1,
+#     'text': 'ПОстик #2',
+# }))
 
-pprint.pprint(method('articles/setExpertCriteria', data={
-    'article': 5,
-    'user': 3,
-    'c1': 5,
-    'c2': 15
-}))
-pprint.pprint(method('articles/retrieveExpertCriteria', data={
+# pprint.pprint(method('articles/setExpertCriteria', data={
+#     'article': 1,
+#     'user': 1,
+#     'c1': 30,
+# }))
+pprint.pprint(method('articles/list/popular', data={
     'article': 5,
     'user': 3,
     'c1': 5

@@ -120,6 +120,22 @@ class ListArticlesAPIView(ListAPIView):
         return CustomResponse.make_response(serializer.data)
 
 
+class ListUsersArticlesAPIView(ListAPIView):
+    queryset = Article.objects.all().order_by('-created')
+    serializer_class = RetrieveArticleSerializer
+
+    def list(self, request, *args, **kwargs):
+        queryset = Article.objects.filter(creator=CustomUser.objects.get(pk=self.kwargs['pk']))
+
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(queryset, many=True)
+        return CustomResponse.make_response(serializer.data)
+
+
 class SetExpertArticleCriteria(APIView):
     def post(self, request, *args, **kwargs):
         serializer = ArticleCriteriaSerializer(data=request.data)
@@ -143,6 +159,31 @@ class SetExpertArticleCriteria(APIView):
         else:
             return CustomResponse.make_response(error=True,
                                                 data=serializer.errors)
+
+
+class ListPopularArticlesAPIView(ListAPIView):
+    raw_queryset = ArticleCriteria.objects.all()
+    serializer_class = ListArticleCriteriaSerializer
+
+    def list(self, request, *args, **kwargs):
+        raw_queryset = ArticleCriteria.objects.all()
+        queryset = {}
+        for model in raw_queryset:
+            model_sum = model.c1 + model.c2 + model.c3 + model.c4 + model.c5 + model.c6 + model.c7 + model.c8
+            queryset[model_sum] = model
+        raw_queryset = sorted(queryset.keys())
+        clear_queryset = []
+        for model in raw_queryset:
+            clear_queryset.append(queryset[model])
+        queryset = reversed(clear_queryset)
+
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(queryset, many=True)
+        return CustomResponse.make_response(serializer.data)
 
 
 class RetrieveExpertArticleCriteria(CustomRetrieveAPIView):

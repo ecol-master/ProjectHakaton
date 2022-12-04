@@ -16,6 +16,8 @@ urlpatterns = [
 
     path('articles/createArticle/', CreateArticleAPIView.as_view(), name='createArticle'),
     path('articles/retrieve/<int:pk>/', RetrieveArticleAPIView.as_view(), name='retrieveArticle'),
+    path('articles/list/popular/', ListPopularArticlesAPIView.as_view()),
+    path('articles/list/<int:pk>/', ListUsersArticlesAPIView.as_view()),
     path('articles/list/', ListArticlesAPIView.as_view(), name='ListArticles'),
 
     # установить экспертную оценку
