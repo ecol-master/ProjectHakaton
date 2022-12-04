@@ -1,12 +1,13 @@
 import React from "react";
 import { useState } from "react";
 import Sidebar from "../../Home/components/Sidebar/Sidebar";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 import "./GradeArticle.scss";
 
 const GradeArticle = () => {
   const [isOpenSideBar, setIsOpenSideBar] = useState(false);
+  const navigate = useNavigate();
 
   const [vote1Count, setVote1Count] = useState(0);
   const [vote2Count, setVote2Count] = useState(0);
@@ -108,10 +109,9 @@ const GradeArticle = () => {
   const created = "22-04-2222";
 
   const onClickFinishGrade = () => {
-    const setArticleGrades = "http://127.0.0.1:8000/api/v1/setExpertCriteria";
-
     const data = {
-      article: localStorage.getItem("article_id"),
+      article: Number(localStorage.getItem("article_id")),
+      user: Number(localStorage.getItem("user_id")),
       c1: vote1Count,
       c2: vote2Count,
       c3: vote3Count,
@@ -123,8 +123,9 @@ const GradeArticle = () => {
     };
     console.log(data);
 
-    const signUpUrlAPI = "http://127.0.0.1:8000/api/v1/setExpertCriteria";
-    fetch(signUpUrlAPI, {
+    const setGradesUrlAPI =
+      "http://127.0.0.1:8000/api/v1/articles/setExpertCriteria/";
+    fetch(setGradesUrlAPI, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -134,7 +135,7 @@ const GradeArticle = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        setError(getErrorFromData(data));
+        navigate("/");
       });
   };
 

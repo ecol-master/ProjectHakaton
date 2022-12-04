@@ -32,6 +32,7 @@ const SignUp = () => {
       localStorage.setItem("user_name", data.data.username);
       localStorage.setItem("user_email", data.data.email);
       localStorage.setItem("is_authorization", true);
+      localStorage.setItem("is_expert", data.data.is_expert)
     }
     return { message: data.message, status_code: data.status_code };
   };

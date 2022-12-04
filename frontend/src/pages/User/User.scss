@@ -1,11 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,400;0,500;0,700;1,100;1,500&display=swap");
 
-.home {
+.user {
   display: grid;
   grid-template-columns: minmax(78px, auto) 1fr 100px;
   grid-template-rows: 1fr;
 
-  .home__section {
+  .user__section {
     margin-top: 20px;
     grid-column: 2/3;
     position: relative;
@@ -22,7 +22,7 @@
     }
   }
 
-  .articles {
+  .user__info {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
     column-gap: 30px;
@@ -30,7 +30,7 @@
     margin-bottom: 50px;
   }
 
-  .home__section.is_open {
+  .user__section.is_open {
     left: 250px;
     width: calc(100% - 250px);
   }

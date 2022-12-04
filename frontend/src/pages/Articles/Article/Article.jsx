@@ -27,11 +27,15 @@ const Article = (props) => {
   };
 
   const renderGradeButton = () => {
-    return (
-      <Link onClick={onClickLinkGrade} to="/grade_article">
-        Оценить
-      </Link>
-    );
+    const isExpert = localStorage.getItem("is_expert") == "true";
+
+    if (isExpert) {
+      return (
+        <Link onClick={onClickLinkGrade} to="/grade_article">
+          Оценить
+        </Link>
+      );
+    }
   };
 
   const getClassNameVoteCount = () => {
