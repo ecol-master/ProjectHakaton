@@ -41,7 +41,8 @@ class AuthorizationAPIView(APIView):
                 user = CustomUser.objects.get(email=serializer.validated_data.get('email'))
                 if user.check_password(
                         serializer.validated_data.get('password')):
-                    response = {'id': user.pk, 'username': user.username, 'email': user.email}
+                    response = {'id': user.pk, 'username': user.username, 'email': user.email,
+                                'is_expert': user.is_expert}
                     login(request, user)
                     return CustomResponse.make_response(data=response,
                                                         message='Успешная авторизация.')
@@ -80,8 +81,6 @@ class RetrieveUserAPIView(CustomRetrieveAPIView):
 
 
 class CreateArticleAPIView(APIView):
-    permission_classes = [IsAuthenticated, ]
-
     def post(self, request, *args, **kwargs):
         serializer = CreateArticleSerializer(data=request.data)
 
@@ -113,3 +112,41 @@ class ListArticlesAPIView(ListAPIView):
 
         serializer = self.get_serializer(queryset, many=True)
         return CustomResponse.make_response(serializer.data)
+
+
+class SetExpertArticleCriteria(APIView):
+    def post(self, request, *args, **kwargs):
+        serializer = ArticleCriteriaSerializer(data=request.data)
+        if serializer.is_valid():
+            article = Article.objects.get(pk=request.data['article'])
+            user = CustomUser.objects.get(pk=request.data['user'])
+            if not ArticleCriteria.objects.filter(user=user, article=article):
+                instance = ArticleCriteria()
+            else:
+                instance = ArticleCriteria.objects.get(user=user, article=article)
+            print(request.data)
+            for param in request.data:
+                try:
+                    setattr(instance, param, int(request.data[param]))
+                    print(param, request.data[param])
+                except:
+                    pass
+            instance.article = article
+            instance.user = user
+            instance.save()
+            return CustomResponse.make_response(message='Изменения сохранены.',
+                                                data={'id': instance.pk})
+        else:
+            return CustomResponse.make_response(error=True,
+                                                data=serializer.errors)
+
+
+class RetrieveExpertArticleCriteria(CustomRetrieveAPIView):
+    queryset = Article
+    serializer_class = ArticleCriteriaSerializer
+
+    def get_object(self):
+        object = ArticleCriteria.objects.get(
+            user__pk=self.request.data['user'],
+            article__pk=self.request.data['article'])
+        return object

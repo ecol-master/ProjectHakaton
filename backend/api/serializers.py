@@ -28,7 +28,8 @@ class RegistrationUserSerializer(serializers.Serializer):
         model.set_password(validated_data.get('password'))
         model.save()
 
-        response = {'id': model.pk, 'username': model.username, 'email': model.email}
+        response = {'id': model.pk, 'username': model.username, 'email': model.email,
+                    'is_expert': model.is_expert}
         return response
 
 
@@ -43,14 +44,15 @@ class RetrieveUserSerializer(serializers.ModelSerializer):
 class CreateArticleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Article
-        exclude = ('created', 'creator')
+        exclude = ('created',)
 
     def create(self, validated_data, *args, **kwargs):
         model = Article()
         model.text = validated_data['text']
         model.title = validated_data['title']
         model.author = validated_data['author']
-        model.creator = kwargs['request'].user
+        # print(validated_data)
+        model.creator = validated_data['creator']
         model.save()
 
         return {'id': model.pk, 'creator': model.creator.username}
@@ -59,4 +61,10 @@ class CreateArticleSerializer(serializers.ModelSerializer):
 class RetrieveArticleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Article
+        fields = '__all__'
+
+
+class ArticleCriteriaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ArticleCriteria
         fields = '__all__'

@@ -24,3 +24,24 @@ class Article(models.Model):
     text = models.TextField()
 
     created = models.DateTimeField(auto_now_add=True)
+
+
+class ArticleCriteria(models.Model):
+    user = models.ForeignKey('CustomUser', on_delete=models.CASCADE)
+    article = models.ForeignKey('Article', on_delete=models.CASCADE)
+
+    c1 = models.IntegerField(default=0, blank=True)
+    c2 = models.IntegerField(default=0, blank=True)
+    c3 = models.IntegerField(default=0, blank=True)
+    c4 = models.IntegerField(default=0, blank=True)
+    c5 = models.IntegerField(default=0, blank=True)
+    c6 = models.IntegerField(default=0, blank=True)
+    c7 = models.IntegerField(default=0, blank=True)
+    c8 = models.IntegerField(default=0, blank=True)
+
+
+class ArticleUsersCriteria(models.Model):
+    user = models.ForeignKey('CustomUser', on_delete=models.CASCADE)
+    article = models.ForeignKey('Article', on_delete=models.CASCADE)
+
+    c = models.IntegerField(default=0, blank=True)
