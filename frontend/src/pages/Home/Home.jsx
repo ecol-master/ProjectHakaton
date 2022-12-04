@@ -9,42 +9,42 @@ import "./Home.scss";
 const Home = () => {
   const [isOpenSideBar, setIsOpenSideBar] = useState(false);
 
-  const articleData = {
-    data: {
-      id: 1,
-      creator: "TestUser",
-      author: "Nikolay",
-      title: "Заголовок статьи.",
-      text: `
-      Lorem ipsum — классический текст-«рыба». Является искажённым отрывком
-      из философского трактата Марка Туллия Цицерона «О пределах добра и
-      зла», написанного в 45 году до н. э. на латинском языке, обнаружение
-      сходства приписывается Ричарду Макклинтоку.
+  // const articleData = {
+  //   data: {
+  //     id: 1,
+  //     creator: "TestUser",
+  //     author: "Nikolay",
+  //     title: "Заголовок статьи.",
+  //     text: `
+  //     Lorem ipsum — классический текст-«рыба». Является искажённым отрывком
+  //     из философского трактата Марка Туллия Цицерона «О пределах добра и
+  //     зла», написанного в 45 году до н. э. на латинском языке, обнаружение
+  //     сходства приписывается Ричарду Макклинтоку.
 
 
 
 
-      Lorem ipsum — классический текст-«рыба». Является искажённым отрывком
-      из философского трактата Марка Туллия Цицерона «О пределах добра и
-      зла», написанного в 45 году до н. э. на латинском языке, обнаружение
-      сходства приписывается Ричарду Макклинтоку.
+  //     Lorem ipsum — классический текст-«рыба». Является искажённым отрывком
+  //     из философского трактата Марка Туллия Цицерона «О пределах добра и
+  //     зла», написанного в 45 году до н. э. на латинском языке, обнаружение
+  //     сходства приписывается Ричарду Макклинтоку.
 
-      Lorem ipsum — классический текст-«рыба». Является искажённым отрывком
-      из философского трактата Марка Туллия Цицерона «О пределах добра и
-      зла», написанного в 45 году до н. э. на латинском языке, обнаружение
-      сходства приписывается Ричарду Макклинтоку.
+  //     Lorem ipsum — классический текст-«рыба». Является искажённым отрывком
+  //     из философского трактата Марка Туллия Цицерона «О пределах добра и
+  //     зла», написанного в 45 году до н. э. на латинском языке, обнаружение
+  //     сходства приписывается Ричарду Макклинтоку.
 
 
-      Lorem ipsum — классический текст-«рыба». Является искажённым отрывком
-      из философского трактата Марка Туллия Цицерона «О пределах добра и
-      зла», написанного в 45 году до н. э. на латинском языке, обнаружение
-      сходства приписывается Ричарду Макклинтоку.`,
-      created: "04-12-2022",
-      likes: 0,
-    },
-    message: "succesful response",
-    error: false,
-  };
+  //     Lorem ipsum — классический текст-«рыба». Является искажённым отрывком
+  //     из философского трактата Марка Туллия Цицерона «О пределах добра и
+  //     зла», написанного в 45 году до н. э. на латинском языке, обнаружение
+  //     сходства приписывается Ричарду Макклинтоку.`,
+  //     created: "04-12-2022",
+  //     likes: 0,
+  //   },
+  //   message: "succesful response",
+  //   error: false,
+  // };
 
   useEffect(() => {}, []);
 
@@ -71,6 +71,7 @@ const Home = () => {
         setIsOpenSideBar={setIsOpenSideBar}
         isOpenSideBar={isOpenSideBar}
       ></Sidebar>
+
       <main
         className={`home__section ${isOpenSideBar == true ? "is_open" : ""}`}
       >
@@ -85,7 +86,7 @@ const Home = () => {
             likes={articleData.data.likes}
           />
           <Article
-            article_id={articleData.data.id}
+            article_id="1"
             title={articleData.data.title}
             author={articleData.data.author}
             creator={articleData.data.creator}
@@ -94,7 +95,7 @@ const Home = () => {
             likes={articleData.data.likes}
           />
           <Article
-            article_id={articleData.data.id}
+            article_id="3"
             title={articleData.data.title}
             author={articleData.data.author}
             creator={articleData.data.creator}
@@ -103,7 +104,7 @@ const Home = () => {
             likes={articleData.data.likes}
           />
           <Article
-            article_id={articleData.data.id}
+            article_id="4"
             title={articleData.data.title}
             author={articleData.data.author}
             creator={articleData.data.creator}

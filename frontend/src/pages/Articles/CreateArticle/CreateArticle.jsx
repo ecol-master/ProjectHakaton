@@ -13,13 +13,13 @@ const CreateArticle = () => {
   const author = useInput();
   const content = useInput();
 
-  const [error, setError] = useState();
+  const [error, setError] = useState({ message: null, status_code: 0 });
 
   const navigate = useNavigate();
   useEffect(() => {
     if (localStorage.getItem("is_authorization") !== "true") {
       // alert("Вы не вошли в аккаунт");
-      // navigate("/sign-in");
+      navigate("/sign-in");
     }
   }, []);
 
@@ -39,6 +39,7 @@ const CreateArticle = () => {
       const publishArticleUrlAPI =
         "http://127.0.0.1:8000/api/v1/articles/createArticle/";
       const data = {
+        creator: localStorage.getItem("user_id"),
         author: author.value,
         title: title.value,
         text: content.value,
@@ -55,7 +56,9 @@ const CreateArticle = () => {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
+          if (data.error === false){
+            navigate("/")
+          }
         });
     } else {
       setError({
@@ -65,6 +68,29 @@ const CreateArticle = () => {
     }
   };
 
+  const renderMessageBox = () => {
+    let classNameBox = "";
+    switch (error.status_code) {
+      case 200:
+        classNameBox = "success";
+        break;
+      case 400:
+        classNameBox = "failed";
+        break;
+      case 0:
+        classNameBox = "hidden";
+        break;
+    }
+
+    return (
+      <div className={`error__box ${classNameBox}`}>
+        <h3 className="error__box_message">
+          {error.status_code == 0 ? "" : error.message}
+        </h3>
+      </div>
+    );
+  };
+
   return (
     <div className="create__note">
       <div className="note__container">
@@ -72,9 +98,7 @@ const CreateArticle = () => {
         <ArticleContent content={content} />
         <div className="publish_button">
           <button onClick={onCLickPublish}>Publish</button>
-          <div className="error__box">
-            <p className="error__message"></p>
-          </div>
+          {renderMessageBox()}
         </div>
       </div>
     </div>
